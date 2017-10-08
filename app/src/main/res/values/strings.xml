@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyApp</string>
+    <string name="temp_text">Test text</string>
+    <string name="text_header_label">Header:</string>
+    <string name="text_description_label">Description:</string>
+
+    <string name="message_empty_edittext">Header and Description must be filled</string>
+    <string name="message_saved">Saved</string>
+    <string name="message_changes_saved">Changes saved</string>
+
+</resources>
