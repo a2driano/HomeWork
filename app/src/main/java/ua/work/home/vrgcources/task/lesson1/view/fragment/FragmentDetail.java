@@ -118,6 +118,7 @@ public class FragmentDetail extends Fragment implements View.OnClickListener {
         }
     }
 
+
     /**
      * when data save result, upgrade data in List fragment
      */

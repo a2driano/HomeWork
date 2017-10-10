@@ -62,4 +62,15 @@ public class ActivityMain extends AppCompatActivity implements FragmentDetail.On
             }
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+//                getSupportFragmentManager().popBackStack();
+//            } else {
+//                finish();
+//            }
+//        }
+//    }
 }

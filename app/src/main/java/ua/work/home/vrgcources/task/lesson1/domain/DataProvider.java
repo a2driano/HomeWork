@@ -32,4 +32,14 @@ public interface DataProvider {
      */
     void updateData(EntryModel model, int position);
 
+    /**
+     * Drag and drop view
+     */
+    void changePosition(int fromPosition, int toPosition);
+
+    /**
+     * Delete item from posotopn
+     */
+    void deleteView(int position);
+
 }

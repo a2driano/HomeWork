@@ -35,4 +35,14 @@ public class DataProviderImpl implements DataProvider {
     public void updateData(EntryModel model, int position) {
         mDataLab.updateData(model, position);
     }
+
+    @Override
+    public void changePosition(int fromPosition, int toPosition) {
+        mDataLab.changePosition(fromPosition, toPosition);
+    }
+
+    @Override
+    public void deleteView(int position) {
+        mDataLab.deleteView(position);
+    }
 }

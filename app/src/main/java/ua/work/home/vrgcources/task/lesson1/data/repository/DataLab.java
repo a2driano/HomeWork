@@ -50,6 +50,18 @@ public class DataLab {
         return mDataList.get(position);
     }
 
+    public void changePosition(int fromPosition, int toPosition) {
+        EntryModel from = mDataList.get(fromPosition);
+        EntryModel to = mDataList.get(toPosition);
+
+        mDataList.get(toPosition).setHeader(from.getHeader()).setDescription(from.getDescription());
+        mDataList.get(fromPosition).setHeader(to.getHeader()).setDescription(to.getDescription());
+    }
+
+    public void deleteView(int position) {
+        mDataList.remove(position);
+    }
+
     private void initializeData() {
         mDataList.add(new EntryModel("Windhelm", "Windhelm, also known as the City of Kings, is a city located in northeastern Skyrim. It serves as the capital of Eastmarch Hold. It is also the oldest city in Skyrim, possibly the oldest city of man on Tamriel that is still standing, dating back to the Merethic Era."));
         mDataList.add(new EntryModel("Riften", "Riften, referred to as Rifton in earlier records, is a city situated in the southeastern corner of The Rift, at the eastern end of Lake Honrich, with a good portion of the city actually spilling over the water atop large wooden piers. It is the southernmost and easternmost of all the cities in Skyrim. "));
@@ -69,6 +81,4 @@ public class DataLab {
         mDataList.add(new EntryModel("Skingrad", "City of Julianos in the West Weald region."));
 //        mDataList.add(new EntryModel("Windhelm", ""));
     }
-
-
 }

@@ -8,6 +8,7 @@
 
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#dadada</color>
+    <color name="colorGreyDark">#979797</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorTransparent">#00000000</color>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import ua.work.home.vrgcources.R;
 import ua.work.home.vrgcources.task.lesson1.App;
 import ua.work.home.vrgcources.task.lesson1.data.model.EntryModel;
 import ua.work.home.vrgcources.task.lesson1.view.adapter.EntryAdapter;
+import ua.work.home.vrgcources.task.lesson1.view.adapter.drag.drop.SimpleItemTouchHelperCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +29,9 @@ public class FragmentList extends Fragment implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private EntryAdapter mAdapter;
     private ImageButton bAddButton;
+
+    //drag and drop func
+    private ItemTouchHelper mItemTouchHelper;
 
     public FragmentList() {
         // Required empty public constructor
@@ -70,6 +75,11 @@ public class FragmentList extends Fragment implements View.OnClickListener {
         List<EntryModel> models = App.getDataProvider().getListData();
         mAdapter = new EntryAdapter(models, getActivity());
         mRecyclerView.setAdapter(mAdapter);
+
+        //drag and drop plus swipe
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     /**
