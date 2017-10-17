@@ -9,12 +9,12 @@ import ua.work.home.vrgcources.R;
 import ua.work.home.vrgcources.task.lesson1.view.fragment.FragmentDetail;
 import ua.work.home.vrgcources.task.lesson1.view.fragment.FragmentList;
 
-public class ActivityMain extends AppCompatActivity implements FragmentDetail.OnDataUpgradeListener {
+public class ActivityLesson1 extends AppCompatActivity implements FragmentDetail.OnDataUpgradeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lesson_1);
         addFragment();
     }
 

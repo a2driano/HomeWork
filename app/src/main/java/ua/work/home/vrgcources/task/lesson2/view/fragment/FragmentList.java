@@ -1,4 +1,4 @@
-package ua.work.home.vrgcources.task.lesson1.view.fragment;
+package ua.work.home.vrgcources.task.lesson2.view.fragment;
 
 
 import android.content.res.Configuration;
@@ -12,13 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ua.work.home.vrgcources.R;
 import ua.work.home.vrgcources.task.App;
+import ua.work.home.vrgcources.task.lesson2.view.adapter.EntryAdapter;
+import ua.work.home.vrgcources.task.lesson2.view.adapter.drag.drop.SimpleItemTouchHelperCallback;
 import ua.work.home.vrgcources.task.data.model.EntryModel;
-import ua.work.home.vrgcources.task.lesson1.view.adapter.EntryAdapter;
-import ua.work.home.vrgcources.task.lesson1.view.adapter.drag.drop.SimpleItemTouchHelperCallback;
+import ua.work.home.vrgcources.task.lesson2.view.utils.ItemAnimator;
+import ua.work.home.vrgcources.task.lesson2.view.utils.ItemManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,11 +35,14 @@ public class FragmentList extends Fragment implements View.OnClickListener {
 
     //drag and drop func
     private ItemTouchHelper mItemTouchHelper;
+    //item animator
+    private ItemAnimator mItemAnimator;
+
+    private List<EntryModel> mEntryModels;
 
     public FragmentList() {
         // Required empty public constructor
     }
-
 
     /**
      * Factory method to create a new instance of
@@ -53,6 +59,8 @@ public class FragmentList extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mItemAnimator = new ItemAnimator(getActivity());
+        mEntryModels = App.getItemMabager().getCurrentList();
     }
 
     @Override
@@ -62,6 +70,7 @@ public class FragmentList extends Fragment implements View.OnClickListener {
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(mItemAnimator);
 
         bAddButton = (ImageButton) rootView.findViewById(R.id.button_add);
         bAddButton.setOnClickListener(this);
@@ -72,7 +81,8 @@ public class FragmentList extends Fragment implements View.OnClickListener {
     }
 
     private void updateUI() {
-        List<EntryModel> models = App.getDataProvider().getListData();
+//        List<EntryModel> models = App.getDataProvider().getListData();
+        List<EntryModel> models = mEntryModels;
         mAdapter = new EntryAdapter(models, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -104,30 +114,18 @@ public class FragmentList extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_add:
-                startAddNewEntryDetailFragment();
+                addElement();
                 break;
         }
     }
 
-    private void startAddNewEntryDetailFragment() {
-        FragmentDetail fragmentDetail = FragmentDetail.newInstance(null, null, -1);
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_list, fragmentDetail)
-                    .addToBackStack(FragmentList.class.getSimpleName())
-                    .commit();
-        } else {
-            FragmentDetail fragmentDetailFind = (FragmentDetail) getActivity()
-                    .getSupportFragmentManager().findFragmentByTag(FragmentDetail.class.getSimpleName());
-            if (fragmentDetailFind != null) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .remove(fragmentDetailFind)
-                        .commit();
-            }
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_detail, fragmentDetail)
-                    .addToBackStack(FragmentList.class.getSimpleName())
-                    .commit();
+    private void addElement() {
+        ItemManager manager = App.getItemMabager();
+        EntryModel model = manager.addNewElement();
+        if (model != null) {
+            mAdapter.getEntryModels().add(model);
+            mAdapter.notifyItemChanged(mAdapter.getItemCount());
         }
     }
+
 }

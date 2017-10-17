@@ -1,8 +1,8 @@
-package ua.work.home.vrgcources.task.lesson1.domain;
+package ua.work.home.vrgcources.task.domain;
 
 import java.util.List;
 
-import ua.work.home.vrgcources.task.lesson1.data.model.EntryModel;
+import ua.work.home.vrgcources.task.data.model.EntryModel;
 
 /**
  * Created by Andrii Papai on 07.10.2017.

@@ -1,4 +1,4 @@
-package ua.work.home.vrgcources.task.lesson1.view.adapter;
+package ua.work.home.vrgcources.task.lesson2.view.adapter;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -9,16 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ua.work.home.vrgcources.R;
+import ua.work.home.vrgcources.task.lesson2.view.adapter.drag.drop.ItemTouchHelperAdapter;
+import ua.work.home.vrgcources.task.lesson2.view.adapter.drag.drop.ItemTouchHelperViewHolder;
 import ua.work.home.vrgcources.task.data.model.EntryModel;
-import ua.work.home.vrgcources.task.lesson1.view.activity.ActivityLesson1;
-import ua.work.home.vrgcources.task.lesson1.view.adapter.drag.drop.ItemTouchHelperAdapter;
-import ua.work.home.vrgcources.task.lesson1.view.adapter.drag.drop.ItemTouchHelperViewHolder;
-import ua.work.home.vrgcources.task.lesson1.view.fragment.FragmentDetail;
 
 /**
  * Created by Andrii Papai on 07.10.2017.
@@ -38,7 +38,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
     @Override
     public EntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //create view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_lesson_2, parent, false);
         return new EntryViewHolder(view);
     }
 
@@ -88,37 +88,22 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
 
         public TextView mTextHeader;
         public TextView mTextDescription;
+        public ImageView mImageIcon;
 
         public EntryViewHolder(View itemView) {
             super(itemView);
             mTextHeader = (TextView) itemView.findViewById(R.id.text_header);
             mTextDescription = (TextView) itemView.findViewById(R.id.text_description);
+            mImageIcon = (ImageView) itemView.findViewById(R.id.icon);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
-            String header = mTextHeader.getText().toString();
-            String description = mTextDescription.getText().toString();
+//            int position = getAdapterPosition();
+//            String header = mTextHeader.getText().toString();
+//            String description = mTextDescription.getText().toString();
 
-            FragmentDetail fragment = FragmentDetail.newInstance(header, description, position);
-            FragmentTransaction transaction = ((ActivityLesson1) mContext)
-                    .getSupportFragmentManager().beginTransaction();
-
-            if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                //if portrait orientation
-                transaction
-                        .replace(R.id.container_list, fragment, FragmentDetail.class.getSimpleName())
-                        .addToBackStack(FragmentDetail.class.getSimpleName())
-                        .commit();
-            } else {
-                //if landscape orientation
-                transaction
-                        .replace(R.id.container_detail, fragment, FragmentDetail.class.getSimpleName())
-                        .addToBackStack(FragmentDetail.class.getSimpleName())
-                        .commit();
-            }
         }
 
         @Override

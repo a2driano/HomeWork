@@ -1,4 +1,4 @@
-package ua.work.home.vrgcources.task.lesson1.data.model;
+package ua.work.home.vrgcources.task.data.model;
 
 /**
  * Created by Andrii Papai on 07.10.2017.

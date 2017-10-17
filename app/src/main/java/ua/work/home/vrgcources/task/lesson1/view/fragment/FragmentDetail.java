@@ -12,8 +12,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ua.work.home.vrgcources.R;
-import ua.work.home.vrgcources.task.lesson1.App;
-import ua.work.home.vrgcources.task.lesson1.data.model.EntryModel;
+import ua.work.home.vrgcources.task.App;
+import ua.work.home.vrgcources.task.data.model.EntryModel;
 
 /**
  * A simple {@link Fragment} subclass.
