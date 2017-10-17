@@ -53,7 +53,6 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
         return mEntryModels.size();
     }
 
-
     /**
      * Drag&drop func
      */
