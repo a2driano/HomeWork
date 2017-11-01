@@ -19,26 +19,24 @@ import ua.work.home.vrgcources.task.App;
 import ua.work.home.vrgcources.task.data.model.EntryModel;
 import ua.work.home.vrgcources.task.lesson1.view.adapter.EntryAdapter;
 import ua.work.home.vrgcources.task.lesson1.view.adapter.drag.drop.SimpleItemTouchHelperCallback;
-import ua.work.home.vrgcources.task.lesson1.view.presentation.ListContract;
-import ua.work.home.vrgcources.task.lesson1.view.presentation.PresenterList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentList#newInstance} factory method to
+ * Use the {@link FragmentListOld#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentList extends Fragment implements View.OnClickListener, ListContract.ViewList {
+public class FragmentListOld extends Fragment implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private EntryAdapter mAdapter;
     private ImageButton bAddButton;
-    private PresenterList mPresenter;
 
     //drag and drop func
     private ItemTouchHelper mItemTouchHelper;
 
-    public FragmentList() {
+    public FragmentListOld() {
         // Required empty public constructor
     }
+
 
     /**
      * Factory method to create a new instance of
@@ -46,8 +44,8 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
      *
      * @return A new instance of fragment FragmentList.
      */
-    public static FragmentList newInstance() {
-        FragmentList fragment = new FragmentList();
+    public static FragmentListOld newInstance() {
+        FragmentListOld fragment = new FragmentListOld();
         return fragment;
     }
 
@@ -74,7 +72,14 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
     }
 
     private void updateUI() {
-//
+        List<EntryModel> models = App.getDataProvider().getListData();
+        mAdapter = new EntryAdapter(models, getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+
+        //drag and drop plus swipe
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     /**
@@ -109,7 +114,7 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container_list, fragmentDetail)
-                    .addToBackStack(FragmentList.class.getSimpleName())
+                    .addToBackStack(FragmentListOld.class.getSimpleName())
                     .commit();
         } else {
             FragmentDetail fragmentDetailFind = (FragmentDetail) getActivity()
@@ -121,20 +126,8 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
             }
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container_detail, fragmentDetail)
-                    .addToBackStack(FragmentList.class.getSimpleName())
+                    .addToBackStack(FragmentListOld.class.getSimpleName())
                     .commit();
         }
-    }
-
-    @Override
-    public void setData(EntryAdapter adapter) {
-        List<EntryModel> models = App.getDataProvider().getListData();
-//        mAdapter = new EntryAdapter(models, getActivity());
-        mRecyclerView.setAdapter(adapter);
-
-        //drag and drop plus swipe
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 }
