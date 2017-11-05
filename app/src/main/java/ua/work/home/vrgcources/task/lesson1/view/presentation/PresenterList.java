@@ -16,11 +16,11 @@ public class PresenterList implements ListContract.PresenterList {
     private Context mContext;
     private EntryAdapter mAdapter;
     private ListContract.ViewList viewList;
-    public PresenterList(Context mContext) {
-        this.mContext = mContext;
+
+    public PresenterList(Context context, ListContract.ViewList viewList) {
+        mContext = context;
+        this.viewList = viewList;
     }
-
-
 
     @Override
     public void getData() {

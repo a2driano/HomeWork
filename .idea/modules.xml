@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HomeWork.iml" filepath="$PROJECT_DIR$/HomeWork.iml" />
+      <module fileurl="file://C:\AndroidProject\Vrgcources\HomeWork.iml" filepath="C:\AndroidProject\Vrgcources\HomeWork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vrgcources.iml" filepath="$PROJECT_DIR$/Vrgcources.iml" />
       <module fileurl="file://C:\AndroidAPP\HomeWork\Vrgcources.iml" filepath="C:\AndroidAPP\HomeWork\Vrgcources.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

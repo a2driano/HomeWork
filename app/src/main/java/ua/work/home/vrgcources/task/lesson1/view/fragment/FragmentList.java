@@ -55,6 +55,7 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mPresenter = new PresenterList(getActivity(), this);
     }
 
     @Override
@@ -69,6 +70,7 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
         bAddButton.setOnClickListener(this);
 
         updateUI();
+        mPresenter.getData();
 
         return rootView;
     }
@@ -128,7 +130,7 @@ public class FragmentList extends Fragment implements View.OnClickListener, List
 
     @Override
     public void setData(EntryAdapter adapter) {
-        List<EntryModel> models = App.getDataProvider().getListData();
+//        List<EntryModel> models = App.getDataProvider().getListData();
 //        mAdapter = new EntryAdapter(models, getActivity());
         mRecyclerView.setAdapter(adapter);
 

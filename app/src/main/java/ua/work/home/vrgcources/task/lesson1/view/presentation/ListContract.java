@@ -8,7 +8,6 @@ import ua.work.home.vrgcources.task.lesson1.view.adapter.EntryAdapter;
 
 public interface ListContract {
     interface ViewList {
-
         void setData(EntryAdapter adapter);
     }
 

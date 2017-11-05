@@ -12,15 +12,15 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ua.work.home.vrgcources.R;
-import ua.work.home.vrgcources.task.lesson1.view.presentation.DetailContract;
-import ua.work.home.vrgcources.task.lesson1.view.presentation.PresenterDetail;
+import ua.work.home.vrgcources.task.App;
+import ua.work.home.vrgcources.task.data.model.EntryModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDetail#newInstance} factory method to
+ * Use the {@link FragmentDetailOld#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentDetail extends Fragment implements View.OnClickListener, DetailContract.ViewDetailContract {
+public class FragmentDetailOld extends Fragment implements View.OnClickListener {
     private final static String HEADER = "header";
     private final static String DESCRIPTION = "description";
     private final static String POSITION = "position";
@@ -35,9 +35,8 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
     private String mHeaderArgText;
     private String mDescriptionArgText;
     private int mPosition;
-    private PresenterDetail mPresenterDetail;
 
-    public FragmentDetail() {
+    public FragmentDetailOld() {
         // Required empty public constructor
     }
 
@@ -47,8 +46,8 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
      *
      * @return A new instance of fragment FragmentDetail.
      */
-    public static FragmentDetail newInstance(String header, String description, Integer position) {
-        FragmentDetail fragment = new FragmentDetail();
+    public static FragmentDetailOld newInstance(String header, String description, Integer position) {
+        FragmentDetailOld fragment = new FragmentDetailOld();
 
         Bundle args = new Bundle();
         args.putString(HEADER, header);
@@ -67,8 +66,6 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
             mDescriptionArgText = getArguments().getString(DESCRIPTION);
             mPosition = getArguments().getInt(POSITION);
         }
-
-        mPresenterDetail = new PresenterDetail(getActivity(), this);
     }
 
     @Override
@@ -106,7 +103,6 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
         //detect new entry
         if (mPosition == -1) {
             saveButtonActive();
-//
         }
     }
 
@@ -117,38 +113,9 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
                 editEntry();
                 break;
             case R.id.button_save:
-//                saveNewEntry();
-                saveEntry();
+                saveNewEntry();
                 break;
         }
-    }
-
-    @Override
-    public void saveEntry() {
-        mPresenterDetail.setEntry(mPosition, etHeaderText.getText().toString(), etDescriptionText.getText().toString());
-    }
-
-    @Override
-    public void onSuccessCreate() {
-        onDataChange();
-        Toast.makeText(getActivity().getApplicationContext(), R.string.message_saved, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSuccessUpdate() {
-        onDataChange();
-        Toast.makeText(getActivity().getApplicationContext(), R.string.message_changes_saved, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onError() {
-        Toast.makeText(getActivity().getApplicationContext(), R.string.message_empty_edittext, Toast.LENGTH_SHORT).show();
-    }
-
-    private void onDataChange() {
-        mOnDataUpgradeListener.onDataUpgrade(mPosition);
-        editButtonActive();
-        setEditTextDisabled();
     }
 
 
@@ -157,6 +124,35 @@ public class FragmentDetail extends Fragment implements View.OnClickListener, De
      */
     public interface OnDataUpgradeListener {
         void onDataUpgrade(int position);
+    }
+
+
+    /**
+     * Save new Entry to storage
+     */
+    private void saveNewEntry() {
+        String header = etHeaderText.getText().toString();
+        String description = etDescriptionText.getText().toString();
+        if (header.matches("") || description.matches("")) {
+            Toast.makeText(getActivity().getApplicationContext(), R.string.message_empty_edittext, Toast.LENGTH_SHORT).show();
+        } else {
+            EntryModel entry;
+            entry = new EntryModel(header, description);
+            if (mPosition != -1) {
+                //Edit exist Entry
+                App.getDataProvider().updateData(entry, mPosition);
+                Toast.makeText(getActivity().getApplicationContext(), R.string.message_changes_saved, Toast.LENGTH_SHORT).show();
+            } else {
+                //save new Entry to storage
+                //detect position for new Entry (position == size because position start from 0)
+                mPosition = App.getDataProvider().getListData().size();
+                App.getDataProvider().addData(entry);
+                Toast.makeText(getActivity().getApplicationContext(), R.string.message_saved, Toast.LENGTH_SHORT).show();
+            }
+            mOnDataUpgradeListener.onDataUpgrade(mPosition);
+            editButtonActive();
+            setEditTextDisabled();
+        }
     }
 
     /**

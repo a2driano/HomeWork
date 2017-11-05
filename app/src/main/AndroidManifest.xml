@@ -13,13 +13,14 @@
         <activity
             android:name=".task.lesson1.view.activity.ActivityLesson1"
             android:configChanges="orientation|keyboardHidden">
-        </activity>
-        <activity android:name=".task.ActivityStart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".task.ActivityStart">
+
         </activity>
         <activity
             android:name=".task.lesson2.view.activity.ActivityLesson2"
